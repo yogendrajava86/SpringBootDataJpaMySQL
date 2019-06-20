@@ -1,11 +1,11 @@
 package com.app.runner;
 
+
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.app.model.Product;
 import com.app.repository.ProductRepository;
+import com.app.repository.ProductRepository.viewA;
 @Component
 public class AppRunner implements CommandLineRunner {
 	@Autowired
@@ -55,7 +56,23 @@ public class AppRunner implements CommandLineRunner {
 		 * }
 		 */
 		PageRequest ps=PageRequest.of(0, 2);
-		repo.findAll(ps).forEach(System.out::println);
+		//repo.findAll(ps).forEach(System.out::println);
+		
+		Product p=new Product();
+		p.setProdCost(5.6);
+		
+		Example<Product> ex= Example.of(p);
+		//repo.findAll(ex).forEach(System.out::println);
+		//repo.findAll(ex,Sort.by(Direction.DESC,"prodCode")).forEach(System.out::println);
+		//repo.findAll(ex,ps).forEach(System.out::println);
+		//repo.findAllById(Arrays.asList(2,4,5,8)).forEach(System.out::println);
+		//repo.findByProdCost(5.6).forEach(l->System.out.println(l.getProdCode()+":"+l.getProdCost()));
+		System.out.println("");
+		//repo.findByProdCode("B").forEach(k->System.out.println(k.getProdId()+":"+k.getProdCode()));
+		repo.findByProdCode("B", viewA.class).forEach(k->System.out.println(k.getProdCode()+":"+k.getProdCost()));
+		
+		
+		
 	}
 
 }

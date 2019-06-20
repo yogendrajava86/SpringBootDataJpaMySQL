@@ -11,6 +11,21 @@ import com.app.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	//get All records
 	List<Product> findAll();
+	//List<Product> findByProdCost(Double prodCost);
+	interface viewA{
+		String getProdCode();
+		Double getProdCost();
+	}
+	interface viewB{
+		Integer getProdId();
+		String getProdCode();
+		
+	}
+	//List<viewA> findByProdCost(Double prodCost);
+	//List<viewB> findByProdCode(String prodCode);
+	
+	<T>List<T> findByProdCode(String prodCode,Class<T> cls);
+	
 	
 	
 
